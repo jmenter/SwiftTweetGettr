@@ -11,18 +11,7 @@
 		63FEA3D6193E888700400515 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEA3D5193E888700400515 /* ViewController.swift */; };
 		63FEA3D9193E888700400515 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63FEA3D7193E888700400515 /* Main.storyboard */; };
 		63FEA3DB193E888700400515 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63FEA3DA193E888700400515 /* Images.xcassets */; };
-		63FEA3E7193E888700400515 /* SwiftTweetGettrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEA3E6193E888700400515 /* SwiftTweetGettrTests.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		63FEA3E1193E888700400515 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63FEA3C6193E888700400515 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63FEA3CD193E888700400515;
-			remoteInfo = SwiftTweetGettr;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		63FEA3CE193E888700400515 /* SwiftTweetGettr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTweetGettr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,20 +20,10 @@
 		63FEA3D5193E888700400515 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		63FEA3D8193E888700400515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		63FEA3DA193E888700400515 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		63FEA3E0193E888700400515 /* SwiftTweetGettrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftTweetGettrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		63FEA3E5193E888700400515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63FEA3E6193E888700400515 /* SwiftTweetGettrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTweetGettrTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		63FEA3CB193E888700400515 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63FEA3DD193E888700400515 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -58,7 +37,6 @@
 			isa = PBXGroup;
 			children = (
 				63FEA3D0193E888700400515 /* SwiftTweetGettr */,
-				63FEA3E3193E888700400515 /* SwiftTweetGettrTests */,
 				63FEA3CF193E888700400515 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,7 +45,6 @@
 			isa = PBXGroup;
 			children = (
 				63FEA3CE193E888700400515 /* SwiftTweetGettr.app */,
-				63FEA3E0193E888700400515 /* SwiftTweetGettrTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,23 +69,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		63FEA3E3193E888700400515 /* SwiftTweetGettrTests */ = {
-			isa = PBXGroup;
-			children = (
-				63FEA3E6193E888700400515 /* SwiftTweetGettrTests.swift */,
-				63FEA3E4193E888700400515 /* Supporting Files */,
-			);
-			path = SwiftTweetGettrTests;
-			sourceTree = "<group>";
-		};
-		63FEA3E4193E888700400515 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				63FEA3E5193E888700400515 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,24 +89,6 @@
 			productReference = 63FEA3CE193E888700400515 /* SwiftTweetGettr.app */;
 			productType = "com.apple.product-type.application";
 		};
-		63FEA3DF193E888700400515 /* SwiftTweetGettrTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 63FEA3ED193E888700400515 /* Build configuration list for PBXNativeTarget "SwiftTweetGettrTests" */;
-			buildPhases = (
-				63FEA3DC193E888700400515 /* Sources */,
-				63FEA3DD193E888700400515 /* Frameworks */,
-				63FEA3DE193E888700400515 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				63FEA3E2193E888700400515 /* PBXTargetDependency */,
-			);
-			name = SwiftTweetGettrTests;
-			productName = SwiftTweetGettrTests;
-			productReference = 63FEA3E0193E888700400515 /* SwiftTweetGettrTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -158,10 +100,6 @@
 				TargetAttributes = {
 					63FEA3CD193E888700400515 = {
 						CreatedOnToolsVersion = 6.0;
-					};
-					63FEA3DF193E888700400515 = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = 63FEA3CD193E888700400515;
 					};
 				};
 			};
@@ -179,7 +117,6 @@
 			projectRoot = "";
 			targets = (
 				63FEA3CD193E888700400515 /* SwiftTweetGettr */,
-				63FEA3DF193E888700400515 /* SwiftTweetGettrTests */,
 			);
 		};
 /* End PBXProject section */
@@ -191,13 +128,6 @@
 			files = (
 				63FEA3D9193E888700400515 /* Main.storyboard in Resources */,
 				63FEA3DB193E888700400515 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63FEA3DE193E888700400515 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,23 +143,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		63FEA3DC193E888700400515 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				63FEA3E7193E888700400515 /* SwiftTweetGettrTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		63FEA3E2193E888700400515 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63FEA3CD193E888700400515 /* SwiftTweetGettr */;
-			targetProxy = 63FEA3E1193E888700400515 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		63FEA3D7193E888700400515 /* Main.storyboard */ = {
@@ -342,42 +256,6 @@
 			};
 			name = Release;
 		};
-		63FEA3EE193E888700400515 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SwiftTweetGettr.app/SwiftTweetGettr";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftTweetGettrTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-			};
-			name = Debug;
-		};
-		63FEA3EF193E888700400515 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SwiftTweetGettr.app/SwiftTweetGettr";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwiftTweetGettrTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -397,14 +275,7 @@
 				63FEA3EC193E888700400515 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		63FEA3ED193E888700400515 /* Build configuration list for PBXNativeTarget "SwiftTweetGettrTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				63FEA3EE193E888700400515 /* Debug */,
-				63FEA3EF193E888700400515 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
