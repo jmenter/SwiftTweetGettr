@@ -81,7 +81,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
                     self.fetchTweets()
                 }
             } else {
-                self.showAlertViewWithMessage("Something went wrong getting access token.")
+                self.showAlertView(message: "Something went wrong getting access token.")
             }
 
         })
@@ -97,9 +97,9 @@ class ViewController : UIViewController, UITextFieldDelegate {
             if response.isHTTPResponseValid() {
                 self.tweetsTableViewDelegate.tweets = data.json() as NSArray
                 self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
-                self.tableView.scrollToTop(true)
+                self.tableView.scrollToTop(animated: true)
             } else {
-                self.showAlertViewWithMessage("Something went wrong getting tweets.")
+                self.showAlertView(message: "Something went wrong getting tweets.")
             }
         })
         spinner.stopAnimating()

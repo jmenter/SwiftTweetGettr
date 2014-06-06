@@ -18,15 +18,14 @@ extension NSData {
 
 extension UITableView {
     
-    func scrollToTop(animated: Bool) {
-        self.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0),
-            atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
+    func scrollToTop(#animated: Bool) {
+        self.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
     }
 }
 
 extension UIViewController {
     
-    func showAlertViewWithMessage(message : String) {
+    func showAlertView(#message : String) {
         var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
@@ -42,6 +41,5 @@ extension String {
     func base64Encoded() -> String {
         return self.data().base64Encoding()
     }
-    
 }
 
