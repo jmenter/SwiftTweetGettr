@@ -1,49 +1,10 @@
 
 import UIKit
 
-extension NSURLResponse {
+class ViewController : UIViewController, UITextFieldDelegate {
     
-    func httpResponseIsValid() -> Bool {
-        let httpResponse = self as? NSHTTPURLResponse
-        return (httpResponse?.statusCode >= 200 && httpResponse?.statusCode <= 299)
-    }
-}
-
-extension NSData {
-    
-    func json() -> AnyObject {
-        return NSJSONSerialization.JSONObjectWithData(self, options: nil, error: nil)
-    }
-}
-
-extension UITableView {
-    
-    func scrollToTop(animated: Bool) {
-        self.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0),
-            atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
-    }
-}
-
-extension UIViewController {
-    
-    func showAlertViewWithMessage(message : String) {
-        var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
-    }
-}
-
-extension String {
-    
-    func base64Encoded() -> String {
-        return self.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false).base64Encoding()
-    }
-}
-
-class ViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
-    
-    let kAPIKey = "";
-    let kAPISecret = "";
+    let kAPIKey = ""
+    let kAPISecret = ""
     let kPostMethod = "POST"
     let kGetMethod = "GET"
     let kContentTypeHeader = "Content-Type"
@@ -54,8 +15,8 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
     let kAuthorizationContentType = "application/x-www-form-urlencoded;charset=UTF-8"
 
     var spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-    var tweets = NSArray()
-
+    var tweetsTableViewDelegate = TweetsTableViewDelegate()
+    
     @IBOutlet var textField : UITextField
     @IBOutlet var button : UIButton
     @IBOutlet var tableView : UITableView
@@ -64,27 +25,39 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad()
         textField.rightView = spinner
         textField.rightViewMode = UITextFieldViewMode.Always
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = button.titleLabel.textColor.CGColor
+        tableView.dataSource = tweetsTableViewDelegate
+        tableView.delegate = tweetsTableViewDelegate
     }
 
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow(), animated: animated)
         if textField.text.isEmpty {
             textField.becomeFirstResponder()
         }
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let tweet = tweetsTableViewDelegate.tweets[tableView.indexPathForSelectedRow().row] as NSDictionary
+        (segue.destinationViewController.view as UITextView).text = tweet.description
+    }
+    
     func textFieldShouldReturn(textField: UITextField!) -> Bool {
         if !textField.text.isEmpty {
-            buttonWasTapped(button)
+            buttonWasTapped(nil)
         }
         return textField.resignFirstResponder()
     }
 
     @IBAction func textFieldDidChange(sender : AnyObject) {
         button.enabled = !textField.text.isEmpty
+        button.layer.borderColor = button.titleLabel.textColor.CGColor
     }
 
-    @IBAction func buttonWasTapped(sender : AnyObject) {
+    @IBAction func buttonWasTapped(sender : AnyObject?) {
         textField.resignFirstResponder()
         spinner.startAnimating()
         if AppDelegate.shared().authorizationToken? {
@@ -97,15 +70,16 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
     func fetchAuthorizationToken() {
         var tokenRequest = NSMutableURLRequest(URL: NSURL(string: kOAuthRootURL))
         tokenRequest.HTTPMethod = kPostMethod
-        tokenRequest.HTTPBody = kAuthorizationBody.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        tokenRequest.HTTPBody = kAuthorizationBody.data()
         tokenRequest.addValue(kAuthorizationContentType, forHTTPHeaderField: kContentTypeHeader)
         tokenRequest.addValue("Basic " + (kAPIKey + ":" + kAPISecret).base64Encoded(), forHTTPHeaderField: kAuthorizationHeader)
         
         NSURLConnection.sendAsynchronousRequest(tokenRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if response.httpResponseIsValid() {
-                var json = data.json() as NSDictionary
-                AppDelegate.shared().authorizationToken = json["access_token"] as? String
-                self.fetchTweets()
+            if response.isHTTPResponseValid() {
+                if let token = data.json()["access_token"] as? String {
+                    AppDelegate.shared().authorizationToken = token
+                    self.fetchTweets()
+                }
             } else {
                 self.showAlertViewWithMessage("Something went wrong getting access token.")
             }
@@ -116,12 +90,12 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
 
     func fetchTweets() {
         var tweetRequest = NSMutableURLRequest(URL: NSURL(string: kTimelineRootURL + textField.text))
-        tweetRequest.HTTPMethod = kGetMethod;
+        tweetRequest.HTTPMethod = kGetMethod
         tweetRequest.addValue("Bearer " + AppDelegate.shared().authorizationToken!, forHTTPHeaderField: kAuthorizationHeader)
         
         NSURLConnection.sendAsynchronousRequest(tweetRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if response.httpResponseIsValid() {
-                self.tweets = data.json() as NSArray
+            if response.isHTTPResponseValid() {
+                self.tweetsTableViewDelegate.tweets = data.json() as NSArray
                 self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
                 self.tableView.scrollToTop(true)
             } else {
@@ -131,23 +105,5 @@ class ViewController : UIViewController, UITableViewDataSource, UITableViewDeleg
         spinner.stopAnimating()
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tweets.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell", forIndexPath: indexPath) as UITableViewCell
-        let tweet = tweets[indexPath.row] as NSDictionary
-
-        cell.textLabel.text = tweet["text"] as String
-        cell.detailTextLabel.text = tweet["created_at"] as String
-        return cell
-    }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-            let tweet = tweets[tableView.indexPathForSelectedRow().row] as NSDictionary
-            (segue.destinationViewController.view as UITextView).text = tweet.description
-    }
-    
 }
 

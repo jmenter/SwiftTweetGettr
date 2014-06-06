@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6339480A1941504E00521224 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633948091941504E00521224 /* Extensions.swift */; };
+		6339480C1941581E00521224 /* TweetsTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339480B1941581E00521224 /* TweetsTableViewDelegate.swift */; };
 		63FEA3D4193E888700400515 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEA3D3193E888700400515 /* AppDelegate.swift */; };
 		63FEA3D6193E888700400515 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEA3D5193E888700400515 /* ViewController.swift */; };
 		63FEA3D9193E888700400515 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63FEA3D7193E888700400515 /* Main.storyboard */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		633948091941504E00521224 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6339480B1941581E00521224 /* TweetsTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsTableViewDelegate.swift; sourceTree = "<group>"; };
 		63FEA3CE193E888700400515 /* SwiftTweetGettr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTweetGettr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FEA3D2193E888700400515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63FEA3D3193E888700400515 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,8 +56,10 @@
 		63FEA3D0193E888700400515 /* SwiftTweetGettr */ = {
 			isa = PBXGroup;
 			children = (
+				633948091941504E00521224 /* Extensions.swift */,
 				63FEA3D3193E888700400515 /* AppDelegate.swift */,
 				63FEA3D5193E888700400515 /* ViewController.swift */,
+				6339480B1941581E00521224 /* TweetsTableViewDelegate.swift */,
 				63FEA3D7193E888700400515 /* Main.storyboard */,
 				63FEA3DA193E888700400515 /* Images.xcassets */,
 				63FEA3D1193E888700400515 /* Supporting Files */,
@@ -139,6 +145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				63FEA3D6193E888700400515 /* ViewController.swift in Sources */,
+				6339480A1941504E00521224 /* Extensions.swift in Sources */,
+				6339480C1941581E00521224 /* TweetsTableViewDelegate.swift in Sources */,
 				63FEA3D4193E888700400515 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
