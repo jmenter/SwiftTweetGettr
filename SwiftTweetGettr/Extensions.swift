@@ -19,7 +19,7 @@ extension NSData {
 extension UITableView {
     
     func scrollToTop(#animated: Bool) {
-        self.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
+        scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
     }
 }
 
@@ -35,11 +35,11 @@ extension UIViewController {
 extension String {
     
     func data() -> NSData {
-        return self.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        return dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
     }
     
     func base64Encoded() -> String {
-        return self.data().base64Encoding()
+        return data().base64Encoding()
     }
 }
 
