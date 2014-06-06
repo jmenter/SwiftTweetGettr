@@ -25,7 +25,7 @@ extension UITableView {
 
 extension UIViewController {
     
-    func showAlertView(#message : String) {
+    func showAlertViewWithMessage(message : String) {
         var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         presentViewController(alertController, animated: true, completion: nil)

@@ -81,7 +81,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
                     self.fetchTweets()
                 }
             } else {
-                self.showAlertView(message: "Something went wrong getting access token.")
+                self.showAlertViewWithMessage("Something went wrong getting access token.")
             }
 
         })
@@ -99,7 +99,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
                 self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
                 self.tableView.scrollToTop(animated: true)
             } else {
-                self.showAlertView(message: "Something went wrong getting tweets.")
+                self.showAlertViewWithMessage("Something went wrong getting tweets.")
             }
         })
         spinner.stopAnimating()
