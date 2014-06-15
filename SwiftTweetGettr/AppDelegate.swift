@@ -5,18 +5,20 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let kAuthorizationTokenStorageKey = "authorizationToken"
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     var window: UIWindow?
     var authorizationToken: String? {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey(kAuthorizationTokenStorageKey)
+            return defaults.stringForKey(kAuthorizationTokenStorageKey)
         }
         set {
             if newValue {
-                NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: kAuthorizationTokenStorageKey)
+                defaults.setObject(newValue, forKey: kAuthorizationTokenStorageKey)
             } else {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(kAuthorizationTokenStorageKey)
+                defaults.removeObjectForKey(kAuthorizationTokenStorageKey)
             }
-            NSUserDefaults.standardUserDefaults().synchronize()
+            defaults.synchronize()
         }
     }
     

@@ -21,15 +21,15 @@ extension NSData {
 extension UITableView {
     
     func scrollToTop(#animated: Bool) {
-        scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
+        scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: animated)
     }
 }
 
 extension UIViewController {
     
     func showAlertViewWithMessage(message : String) {
-        var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
     }
 }
