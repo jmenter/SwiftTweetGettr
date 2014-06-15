@@ -14,7 +14,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
     let kAuthorizationBody = "grant_type=client_credentials"
     let kAuthorizationContentType = "application/x-www-form-urlencoded;charset=UTF-8"
 
-    var spinner : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     var tweetsTableViewDelegate = TweetsTableViewDelegate()
     
     @IBOutlet var textField : UITextField
@@ -24,7 +24,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         textField.rightView = spinner
-        textField.rightViewMode = UITextFieldViewMode.Always
+        textField.rightViewMode = .Always
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
         button.layer.borderColor = button.titleLabel.textColor.CGColor
@@ -68,7 +68,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
     }
 
     func fetchAuthorizationToken() {
-        var tokenRequest = NSMutableURLRequest(URL: NSURL(string: kOAuthRootURL))
+        var tokenRequest = kOAuthRootURL.createURL().createMutableRequest()
         tokenRequest.HTTPMethod = kPostMethod
         tokenRequest.HTTPBody = kAuthorizationBody.data()
         tokenRequest.addValue(kAuthorizationContentType, forHTTPHeaderField: kContentTypeHeader)
@@ -81,7 +81,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
                     self.fetchTweets()
                 }
             } else {
-                self.showAlertViewWithMessage("Something went wrong getting access token.")
+                self.showAlertViewWithMessage("Something went wrong getting token.")
             }
 
         })
@@ -89,13 +89,13 @@ class ViewController : UIViewController, UITextFieldDelegate {
     }
 
     func fetchTweets() {
-        var tweetRequest = NSMutableURLRequest(URL: NSURL(string: kTimelineRootURL + textField.text))
+        var tweetRequest = (kTimelineRootURL + textField.text).createURL().createMutableRequest()
         tweetRequest.HTTPMethod = kGetMethod
         tweetRequest.addValue("Bearer " + AppDelegate.shared().authorizationToken!, forHTTPHeaderField: kAuthorizationHeader)
         
         NSURLConnection.sendAsynchronousRequest(tweetRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if response.isHTTPResponseValid() {
-                self.tweetsTableViewDelegate.tweets = data.json() as NSArray
+                self.tweetsTableViewDelegate.tweets = data.json() as Array
                 self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
                 self.tableView.scrollToTop(animated: true)
             } else {

@@ -4,8 +4,10 @@ import UIKit
 extension NSURLResponse {
     
     func isHTTPResponseValid() -> Bool {
-        let httpResponse = self as? NSHTTPURLResponse
-        return (httpResponse?.statusCode >= 200 && httpResponse?.statusCode <= 299)
+        if let httpResponse = self as? NSHTTPURLResponse {
+            return (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299)
+        }
+        return false
     }
 }
 
@@ -41,5 +43,15 @@ extension String {
     func base64Encoded() -> String {
         return data().base64Encoding()
     }
+    
+    func createURL() -> NSURL {
+        return NSURL.URLWithString(self)
+    }
 }
 
+extension NSURL {
+    
+    func createMutableRequest() -> NSMutableURLRequest {
+        return NSMutableURLRequest(URL: self)
+    }
+}

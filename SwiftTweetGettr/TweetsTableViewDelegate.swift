@@ -3,7 +3,7 @@ import UIKit
 
 class TweetsTableViewDelegate : NSObject, UITableViewDataSource, UITableViewDelegate {
  
-    var tweets = NSArray()
+    var tweets = Array<AnyObject>()
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
@@ -18,5 +18,4 @@ class TweetsTableViewDelegate : NSObject, UITableViewDataSource, UITableViewDele
         return cell
     }
     
-
 }
