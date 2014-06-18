@@ -1,0 +1,21 @@
+
+var total = 0
+var first = 1
+var second = 1
+var third = 0
+let limit = 4_000_000
+
+for var i = 0; i < 100; i++ {
+    third = first + second
+    if third % 2 == 0 {
+        total += third
+    }
+    second = first
+    first = third
+    if third > limit {
+        break
+    }
+}
+
+total
+
