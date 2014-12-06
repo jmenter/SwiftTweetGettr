@@ -3,7 +3,6 @@ import UIKit
 
 class ViewController : UIViewController, UITextFieldDelegate {
     
-
     var spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     var tweetsTableViewDelegate = TweetsTableViewDelegate()
     
@@ -15,9 +14,11 @@ class ViewController : UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         textField.rightView = spinner
         textField.rightViewMode = .Always
+        
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
         button.layer.borderColor = button.titleLabel?.textColor.CGColor
+        
         tableView.dataSource = tweetsTableViewDelegate
         tableView.delegate = tweetsTableViewDelegate
     }

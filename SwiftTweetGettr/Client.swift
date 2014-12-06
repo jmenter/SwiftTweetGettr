@@ -14,14 +14,6 @@ private let kAuthorizationContentType = "application/x-www-form-urlencoded;chars
 
 class Client {
     
-    class func authorizationHeader() -> String {
-        return "Basic " + (kAPIKey + ":" + kAPISecret).base64Encoded()
-    }
-    
-    class func authorizedHeader() -> String {
-        return "Bearer " + Authorization.shared.token()!
-    }
-    
     class func fetchAuthorizationToken(#success:() -> Void, failure:(String) -> Void) {
         var tokenRequest = kOAuthRootURL.createURL().createMutableRequest()
         tokenRequest.HTTPMethod = kPostMethod
@@ -68,4 +60,13 @@ class Client {
             failure("no response or error")
         }
     }
+    
+    private class func authorizationHeader() -> String {
+        return "Basic " + (kAPIKey + ":" + kAPISecret).base64Encoded()
+    }
+    
+    private class func authorizedHeader() -> String {
+        return "Bearer " + Authorization.shared.token()!
+    }
+    
 }

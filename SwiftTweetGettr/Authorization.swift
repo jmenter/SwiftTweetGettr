@@ -5,7 +5,6 @@ private let _SharedInstance = Authorization()
 private let kAuthorizationTokenStorageKey = "authorizationToken"
 private let defaults = NSUserDefaults.standardUserDefaults()
 
-
 class Authorization {
     
     class var shared: Authorization { return _SharedInstance }
