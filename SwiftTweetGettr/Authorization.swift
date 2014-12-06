@@ -16,6 +16,11 @@ class Authorization {
         defaults.synchronize()
     }
     
+    func expireToken() -> Void {
+        defaults.removeObjectForKey(kAuthorizationTokenStorageKey)
+        defaults.synchronize()
+    }
+    
     func hasToken()->Bool {
         if let value = token() { return true }
         return false
