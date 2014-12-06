@@ -14,21 +14,21 @@ extension NSURLResponse {
 extension NSData {
     
     func json() -> AnyObject {
-        return NSJSONSerialization.JSONObjectWithData(self, options: nil, error: nil)
+        return NSJSONSerialization.JSONObjectWithData(self, options: nil, error: nil)!
     }
 }
 
 extension UITableView {
     
     func scrollToTop(#animated: Bool) {
-        scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: animated)
+        scrollRectToVisible(CGRectMake(0, 0, 1, 0), animated: true)
     }
 }
 
 extension UIViewController {
     
     func showAlertViewWithMessage(message : String) {
-        var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .Alert)
+        var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
     }
@@ -37,15 +37,20 @@ extension UIViewController {
 extension String {
     
     func data() -> NSData {
-        return dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        return dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
     }
     
     func base64Encoded() -> String {
-        return data().base64Encoding()
+        return data().base64EncodedStringWithOptions(nil)
     }
     
     func createURL() -> NSURL {
-        return NSURL.URLWithString(self)
+        return NSURL(string: self)!
+    }
+    
+    func stringByRemovingWhitespace() -> String {
+        let trimmed = self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        return trimmed.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
     }
 }
 

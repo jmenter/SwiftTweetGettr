@@ -13,8 +13,9 @@ class TweetsTableViewDelegate : NSObject, UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell", forIndexPath: indexPath) as UITableViewCell
         let tweet = tweets[indexPath.row] as NSDictionary
         
-        cell.textLabel.text = tweet["text"] as String
-        cell.detailTextLabel.text = tweet["created_at"] as String
+        cell.textLabel?.text = tweet["text"] as? String
+        cell.detailTextLabel?.text = tweet["created_at"] as? String
+        
         return cell
     }
     
