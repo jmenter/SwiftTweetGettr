@@ -60,14 +60,6 @@ extension String {
     }
 }
 
-extension NSURL {
-    
-    func createMutableRequest() -> NSMutableURLRequest
-    {
-        return NSMutableURLRequest(URL: self)
-    }
-}
-
 extension NSMutableURLRequest {
     
     class func getRequestWithURL(url:NSURL) -> NSMutableURLRequest

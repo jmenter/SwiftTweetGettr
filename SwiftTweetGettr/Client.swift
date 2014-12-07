@@ -6,7 +6,7 @@ private let kAPISecret = ""
 private let kPostMethod = "POST"
 private let kGetMethod = "GET"
 private let kContentTypeHeader = "Content-Type"
-private let kAuthorizationHeader = "Authorization"
+private let kAuthorizationHeaderKey = "Authorization"
 private let kOAuthRootURL = "https://api.twitter.com/oauth2/token"
 private let kTimelineRootURL = "https://api.twitter.com/1.1/statuses/user_timeline.json?count=30&screen_name="
 private let kAuthorizationBody = "grant_type=client_credentials"
@@ -18,7 +18,7 @@ class Client {
     {
         var tokenRequest = NSMutableURLRequest.postRequestWithURL(kOAuthRootURL.createURL(), body: kAuthorizationBody)
         tokenRequest.addValue(kAuthorizationContentType, forHTTPHeaderField: kContentTypeHeader)
-        tokenRequest.addValue(authorizationHeader(), forHTTPHeaderField: kAuthorizationHeader)
+        tokenRequest.addValue(headerForAuthorization(), forHTTPHeaderField: kAuthorizationHeaderKey)
         
         NSURLConnection.sendAsynchronousRequest(tokenRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if response.isHTTPResponseValid() {
@@ -33,7 +33,7 @@ class Client {
     class func fetchTweetsForUser(userName:String, success:(Array<Tweet>) -> Void, failure:(String) -> Void)
     {
         var tweetRequest = NSMutableURLRequest.getRequestWithURL((kTimelineRootURL + userName.stringByRemovingWhitespace()).createURL())
-        tweetRequest.addValue(authorizedHeader(), forHTTPHeaderField: kAuthorizationHeader)
+        tweetRequest.addValue(headerWithAuthorization(), forHTTPHeaderField: kAuthorizationHeaderKey)
         
         NSURLConnection.sendAsynchronousRequest(tweetRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if response.isHTTPResponseValid() {
@@ -58,12 +58,12 @@ class Client {
         else { failure("no response or error") }
     }
     
-    private class func authorizationHeader() -> String
+    private class func headerForAuthorization() -> String
     {
         return "Basic " + (kAPIKey + ":" + kAPISecret).base64Encoded()
     }
     
-    private class func authorizedHeader() -> String
+    private class func headerWithAuthorization() -> String
     {
         return "Bearer " + Authorization.shared.token()!
     }
