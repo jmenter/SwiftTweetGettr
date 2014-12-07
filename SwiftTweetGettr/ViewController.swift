@@ -23,7 +23,8 @@ class ViewController : UIViewController, UITextFieldDelegate {
         tableView.delegate = tweetsTableViewDelegate
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool)
+    {
         super.viewDidAppear(animated)
         if let selected = tableView.indexPathForSelectedRow() {
             tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: animated)
@@ -35,14 +36,12 @@ class ViewController : UIViewController, UITextFieldDelegate {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let index = tableView.indexPathForSelectedRow()?.row
-        let tweet = tweetsTableViewDelegate.tweets[index!] as NSDictionary
-        (segue.destinationViewController.view as UITextView).text = tweet.description
+        let tweet = tweetsTableViewDelegate.tweets[index!]
+        (segue.destinationViewController.view as UITextView).text = tweet.description()
     }
     
     func textFieldShouldReturn(textField: UITextField!) -> Bool {
-        if !textField.text.isEmpty {
-            buttonWasTapped(nil)
-        }
+        if !textField.text.isEmpty { buttonWasTapped(nil) }
         return textField.resignFirstResponder()
     }
 
@@ -54,9 +53,9 @@ class ViewController : UIViewController, UITextFieldDelegate {
     @IBAction func buttonWasTapped(sender : AnyObject?) {
         textField.resignFirstResponder()
         spinner.startAnimating()
-        if (Authorization.shared.hasToken()) {
-            fetchTweets()
-        } else {
+        
+        if Authorization.shared.hasToken() { fetchTweets() }
+        else {
             Client.fetchAuthorizationToken(success: { () -> Void in
                 self.fetchTweets()
                 }, failure: { (message) -> Void in

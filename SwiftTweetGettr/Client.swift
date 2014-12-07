@@ -14,66 +14,57 @@ private let kAuthorizationContentType = "application/x-www-form-urlencoded;chars
 
 class Client {
     
-    class func fetchAuthorizationToken(#success:() -> Void, failure:(String) -> Void) {
-        var tokenRequest = kOAuthRootURL.createURL().createMutableRequest()
-        tokenRequest.HTTPMethod = kPostMethod
-        tokenRequest.HTTPBody = kAuthorizationBody.data()
+    class func fetchAuthorizationToken(#success:() -> Void, failure:(String) -> Void)
+    {
+        var tokenRequest = NSMutableURLRequest.postRequestWithURL(kOAuthRootURL.createURL(), body: kAuthorizationBody)
         tokenRequest.addValue(kAuthorizationContentType, forHTTPHeaderField: kContentTypeHeader)
         tokenRequest.addValue(authorizationHeader(), forHTTPHeaderField: kAuthorizationHeader)
         
         NSURLConnection.sendAsynchronousRequest(tokenRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if response.isHTTPResponseValid() {
-                if let token = data.json()["access_token"] as? String {
-                    Authorization.shared.setToken(token)
+                Authorization.shared.setToken(data.json()["access_token"] as? String)
+                if Authorization.shared.hasToken() {
                     success()
-                } else {
-                    failure("response has no access_token")
-                }
-            } else {
-                self.handleFailure(failure, error: error, response: response)
-            }
+                } else { failure("response has no access_token") }
+            } else { self.handleFailure(failure, error: error, response: response) }
         })
     }
     
-    class func fetchTweetsForUser(userName:String, success:(Array<AnyObject>) -> Void, failure:(String) -> Void) {
-        var tweetRequest = (kTimelineRootURL + userName.stringByRemovingWhitespace()).createURL().createMutableRequest()
-        tweetRequest.HTTPMethod = kGetMethod
+    class func fetchTweetsForUser(userName:String, success:(Array<Tweet>) -> Void, failure:(String) -> Void)
+    {
+        var tweetRequest = NSMutableURLRequest.getRequestWithURL((kTimelineRootURL + userName.stringByRemovingWhitespace()).createURL())
         tweetRequest.addValue(authorizedHeader(), forHTTPHeaderField: kAuthorizationHeader)
         
         NSURLConnection.sendAsynchronousRequest(tweetRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if response.isHTTPResponseValid() {
-                if let results:Array<AnyObject> = data.json() as? Array {
-                    success(results)
+                if let results:Array<NSDictionary> = data.json() as? Array {
+                    success(Tweet.tweetsFromArray(results))
                 }
-            } else {
-                self.handleFailure(failure, error: error, response: response)
-            }
+            } else { self.handleFailure(failure, error: error, response: response) }
         })
     }
     
-    class func fetchImageAtURL(url:String, forImageView imageView:UIImageView) -> Void {
+    class func fetchImageAtURL(url:String, success:(UIImage?) -> Void) -> Void
+    {
         NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL:  NSURL(string: url)!), queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
-            if (response.isHTTPResponseValid()) {
-                imageView.image = UIImage(data: data)
-            }
+            if (response.isHTTPResponseValid()) { success(UIImage(data: data)) }
         }
     }
 
-    private class func handleFailure(failure:(String) -> Void, error:NSError!, response: NSURLResponse!) -> Void {
-        if let actuallyError = error {
-            failure(actuallyError.description)
-        } else if let actuallyResponse = response {
-            failure(actuallyResponse.description)
-        } else {
-            failure("no response or error")
-        }
+    private class func handleFailure(failure:(String) -> Void, error:NSError!, response: NSURLResponse!) -> Void
+    {
+        if let actuallyError = error { failure(actuallyError.description) }
+        else if let actuallyResponse = response { failure(actuallyResponse.description) }
+        else { failure("no response or error") }
     }
     
-    private class func authorizationHeader() -> String {
+    private class func authorizationHeader() -> String
+    {
         return "Basic " + (kAPIKey + ":" + kAPISecret).base64Encoded()
     }
     
-    private class func authorizedHeader() -> String {
+    private class func authorizedHeader() -> String
+    {
         return "Bearer " + Authorization.shared.token()!
     }
     

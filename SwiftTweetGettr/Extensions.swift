@@ -3,31 +3,33 @@ import UIKit
 
 extension NSURLResponse {
     
-    func isHTTPResponseValid() -> Bool {
-        if let httpResponse = self as? NSHTTPURLResponse {
-            return (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299)
-        }
+    func isHTTPResponseValid() -> Bool
+    {
+        if let response = self as? NSHTTPURLResponse { return (response.statusCode >= 200 && response.statusCode <= 299) }
         return false
     }
 }
 
 extension NSData {
     
-    func json() -> AnyObject {
+    func json() -> AnyObject
+    {
         return NSJSONSerialization.JSONObjectWithData(self, options: nil, error: nil)!
     }
 }
 
 extension UITableView {
     
-    func scrollToTop(#animated: Bool) {
+    func scrollToTop(#animated: Bool)
+    {
         scrollRectToVisible(CGRectMake(0, 0, 1, 0), animated: true)
     }
 }
 
 extension UIViewController {
     
-    func showAlertViewWithMessage(message : String) {
+    func showAlertViewWithMessage(message : String)
+    {
         var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
@@ -36,19 +38,23 @@ extension UIViewController {
 
 extension String {
     
-    func data() -> NSData {
+    func data() -> NSData
+    {
         return dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
     }
     
-    func base64Encoded() -> String {
+    func base64Encoded() -> String
+    {
         return data().base64EncodedStringWithOptions(nil)
     }
     
-    func createURL() -> NSURL {
+    func createURL() -> NSURL
+    {
         return NSURL(string: self)!
     }
     
-    func stringByRemovingWhitespace() -> String {
+    func stringByRemovingWhitespace() -> String
+    {
         let trimmed = self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         return trimmed.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
     }
@@ -56,7 +62,26 @@ extension String {
 
 extension NSURL {
     
-    func createMutableRequest() -> NSMutableURLRequest {
+    func createMutableRequest() -> NSMutableURLRequest
+    {
         return NSMutableURLRequest(URL: self)
+    }
+}
+
+extension NSMutableURLRequest {
+    
+    class func getRequestWithURL(url:NSURL) -> NSMutableURLRequest
+    {
+        var request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "GET"
+        return request
+    }
+    
+    class func postRequestWithURL(url:NSURL, body:String) -> NSMutableURLRequest
+    {
+        var request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = body.data()
+        return request
     }
 }
