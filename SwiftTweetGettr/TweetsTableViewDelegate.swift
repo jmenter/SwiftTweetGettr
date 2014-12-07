@@ -15,8 +15,9 @@ class TweetsTableViewDelegate : NSObject, UITableViewDataSource, UITableViewDele
         
         cell.textLabel?.text = tweet["text"] as? String
         cell.detailTextLabel?.text = tweet["created_at"] as? String
-        
+        cell.imageView?.image = UIImage(named: "default")
+        Client.fetchImageAtURL(tweet.valueForKeyPath("user.profile_image_url") as String, forCell: cell)
         return cell
     }
-    
+        
 }

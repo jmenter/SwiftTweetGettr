@@ -22,7 +22,7 @@ class Authorization {
     }
     
     func hasToken()->Bool {
-        if let value = token() { return true }
+        if let actuallyToken = token() { return true }
         return false
     }
 }

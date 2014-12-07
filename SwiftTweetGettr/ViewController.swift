@@ -57,17 +57,13 @@ class ViewController : UIViewController, UITextFieldDelegate {
         if (Authorization.shared.hasToken()) {
             fetchTweets()
         } else {
-            fetchAuthorizationToken()
-        }
-    }
-
-    func fetchAuthorizationToken() {
-        Client.fetchAuthorizationToken(success: { () -> Void in
+            Client.fetchAuthorizationToken(success: { () -> Void in
                 self.fetchTweets()
-            }, failure: { (message) -> Void in
-                self.showAlertViewWithMessage("Something went wrong getting token. \(message)")
-                self.spinner.stopAnimating()
-        })
+                }, failure: { (message) -> Void in
+                    self.showAlertViewWithMessage("Something went wrong getting token. \(message)")
+                    self.spinner.stopAnimating()
+            })
+        }
     }
 
     func fetchTweets() {
@@ -75,10 +71,11 @@ class ViewController : UIViewController, UITextFieldDelegate {
             self.tweetsTableViewDelegate.tweets = tweets
             self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
             self.tableView.scrollToTop(animated: true)
+            self.spinner.stopAnimating()
             }, failure: { (message) -> Void in
                 self.showAlertViewWithMessage("Something went wrong getting tweets. \(message)")
+                self.spinner.stopAnimating()
         })
-        spinner.stopAnimating()
     }
 
 }

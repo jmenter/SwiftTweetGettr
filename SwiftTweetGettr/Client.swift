@@ -27,7 +27,7 @@ class Client {
                     Authorization.shared.setToken(token)
                     success()
                 } else {
-                    failure("response has no token")
+                    failure("response has no access_token")
                 }
             } else {
                 self.handleFailure(failure, error: error, response: response)
@@ -51,11 +51,19 @@ class Client {
         })
     }
     
+    class func fetchImageAtURL(url:String, forCell cell:UITableViewCell) -> Void {
+        NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL:  NSURL(string: url)!), queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            if (response.isHTTPResponseValid()) {
+                cell.imageView?.image = UIImage(data: data)
+            }
+        }
+    }
+
     private class func handleFailure(failure:(String) -> Void, error:NSError!, response: NSURLResponse!) -> Void {
-        if let gottenError = error {
-            failure(gottenError.description)
-        } else if let gottenResponse = response {
-            failure(gottenResponse.description)
+        if let actuallyError = error {
+            failure(actuallyError.description)
+        } else if let actuallyResponse = response {
+            failure(actuallyResponse.description)
         } else {
             failure("no response or error")
         }
