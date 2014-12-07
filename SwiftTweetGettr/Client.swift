@@ -51,10 +51,10 @@ class Client {
         })
     }
     
-    class func fetchImageAtURL(url:String, forCell cell:UITableViewCell) -> Void {
+    class func fetchImageAtURL(url:String, forImageView imageView:UIImageView) -> Void {
         NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL:  NSURL(string: url)!), queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
             if (response.isHTTPResponseValid()) {
-                cell.imageView?.image = UIImage(data: data)
+                imageView.image = UIImage(data: data)
             }
         }
     }
