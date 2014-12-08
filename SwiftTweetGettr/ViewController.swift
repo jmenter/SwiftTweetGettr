@@ -41,7 +41,9 @@ class ViewController : UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField!) -> Bool {
-        if !textField.text.isEmpty { buttonWasTapped(nil) }
+        if !textField.text.isEmpty {
+            buttonWasTapped(nil)
+        }
         return textField.resignFirstResponder()
     }
 
@@ -54,8 +56,9 @@ class ViewController : UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         spinner.startAnimating()
         
-        if Authorization.shared.hasToken() { fetchTweets() }
-        else {
+        if Authorization.shared.hasToken() {
+            fetchTweets()
+        } else {
             Client.fetchAuthorizationToken(success: { () -> Void in
                 self.fetchTweets()
                 }, failure: { (message) -> Void in

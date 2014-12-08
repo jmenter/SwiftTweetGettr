@@ -5,7 +5,9 @@ extension NSURLResponse {
     
     func isHTTPResponseValid() -> Bool
     {
-        if let response = self as? NSHTTPURLResponse { return (response.statusCode >= 200 && response.statusCode <= 299) }
+        if let response = self as? NSHTTPURLResponse {
+            return (response.statusCode >= 200 && response.statusCode <= 299)
+        }
         return false
     }
 }
