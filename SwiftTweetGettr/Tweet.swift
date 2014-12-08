@@ -3,15 +3,15 @@ import UIKit
 
 class Tweet {
     
-    class func tweetsFromArray(from: Array<NSDictionary>) -> Array<Tweet>
+    class func tweetsFromArray(from: Array<Dictionary<String, AnyObject>>) -> Array<Tweet>
     {
         return from.map( { Tweet(tweetDictionary: $0) } )
     }
     
-    private let tweetDictionary:NSDictionary
+    private let tweetDictionary:Dictionary<String, AnyObject>
     var userImage = UIImage(named: "default")
     
-    init(tweetDictionary:NSDictionary)
+    init(tweetDictionary:Dictionary<String, AnyObject>)
     {
         self.tweetDictionary = tweetDictionary
         Client.fetchImageAtURL(profileImageURL(), success: { (image) -> Void in
@@ -21,12 +21,12 @@ class Tweet {
     
     func text() -> String
     {
-        return tweetDictionary.valueForKeyPath("text") as String
+        return tweetDictionary["text"] as String
     }
     
     func createdAt() -> String
     {
-        return tweetDictionary.valueForKeyPath("created_at") as String
+        return tweetDictionary["created_at"] as String
     }
     
     func description() -> String
@@ -36,7 +36,7 @@ class Tweet {
     
     private func profileImageURL() -> String
     {
-        return tweetDictionary.valueForKeyPath("user.profile_image_url") as String
+        return (tweetDictionary["user"] as Dictionary<String, AnyObject>)["profile_image_url"] as String
     }
     
 }

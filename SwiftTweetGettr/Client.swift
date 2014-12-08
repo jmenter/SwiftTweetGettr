@@ -25,8 +25,12 @@ class Client {
                 Authorization.shared.setToken(data.json()["access_token"] as? String)
                 if Authorization.shared.hasToken() {
                     success()
-                } else { failure("response has no access_token") }
-            } else { self.handleFailure(failure, error: error, response: response) }
+                } else {
+                    failure("response has no access_token")
+                }
+            } else {
+                self.handleFailure(failure, error: error, response: response)
+            }
         })
     }
     
@@ -37,25 +41,33 @@ class Client {
         
         NSURLConnection.sendAsynchronousRequest(tweetRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if response.isHTTPResponseValid() {
-                if let results:Array<NSDictionary> = data.json() as? Array {
+                if let results:Array<Dictionary<String, AnyObject>> = data.json() as? Array {
                     success(Tweet.tweetsFromArray(results))
                 }
-            } else { self.handleFailure(failure, error: error, response: response) }
+            } else {
+                self.handleFailure(failure, error: error, response: response)
+            }
         })
     }
     
     class func fetchImageAtURL(url:String, success:(UIImage?) -> Void) -> Void
     {
         NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL:  NSURL(string: url)!), queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
-            if (response.isHTTPResponseValid()) { success(UIImage(data: data)) }
+            if response.isHTTPResponseValid() {
+                success(UIImage(data: data))
+            }
         }
     }
 
     private class func handleFailure(failure:(String) -> Void, error:NSError!, response: NSURLResponse!) -> Void
     {
-        if let actuallyError = error { failure(actuallyError.description) }
-        else if let actuallyResponse = response { failure(actuallyResponse.description) }
-        else { failure("no response or error") }
+        if let actuallyError = error {
+            failure(actuallyError.description)
+        } else if let actuallyResponse = response {
+            failure(actuallyResponse.description)
+        } else {
+            failure("no response or error")
+        }
     }
     
     private class func headerForAuthorization() -> String
