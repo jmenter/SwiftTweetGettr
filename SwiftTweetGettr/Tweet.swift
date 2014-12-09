@@ -14,7 +14,7 @@ class Tweet {
     init(tweetDictionary:Dictionary<String, AnyObject>)
     {
         self.tweetDictionary = tweetDictionary
-        Client.fetchImageAtURL(profileImageURL(), success: { (image) -> Void in
+        TwitterClient.fetchImageAtURL(profileImageURL(), success: { (image) -> Void in
             self.userImage = image
         })
     }

@@ -56,10 +56,10 @@ class ViewController : UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         spinner.startAnimating()
         
-        if Authorization.shared.hasToken() {
+        if TwitterAuthorization.hasToken() {
             fetchTweets()
         } else {
-            Client.fetchAuthorizationToken(success: { () -> Void in
+            TwitterClient.fetchAuthorizationToken(success: { () -> Void in
                 self.fetchTweets()
                 }, failure: { (message) -> Void in
                     self.showAlertViewWithMessage("Something went wrong getting token. \(message)")
@@ -69,7 +69,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
     }
 
     func fetchTweets() {
-        Client.fetchTweetsForUser(textField.text.stringByRemovingWhitespace(), success: { (tweets) -> Void in
+        TwitterClient.fetchTweetsForUser(textField.text.stringByRemovingWhitespace(), success: { (tweets) -> Void in
             self.tweetsTableViewDelegate.tweets = tweets
             self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
             self.tableView.scrollToTop(animated: true)

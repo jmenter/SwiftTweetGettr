@@ -12,7 +12,7 @@ private let kTimelineRootURL = "https://api.twitter.com/1.1/statuses/user_timeli
 private let kAuthorizationBody = "grant_type=client_credentials"
 private let kAuthorizationContentType = "application/x-www-form-urlencoded;charset=UTF-8"
 
-class Client {
+class TwitterClient {
     
     class func fetchAuthorizationToken(#success:() -> Void, failure:(String) -> Void)
     {
@@ -22,8 +22,8 @@ class Client {
         
         NSURLConnection.sendAsynchronousRequest(tokenRequest, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if response.isHTTPResponseValid() {
-                Authorization.shared.setToken(data.json()["access_token"] as? String)
-                if Authorization.shared.hasToken() {
+                TwitterAuthorization.setToken(data.json()["access_token"] as? String)
+                if TwitterAuthorization.hasToken() {
                     success()
                 } else {
                     failure("response has no access_token")
@@ -77,7 +77,7 @@ class Client {
     
     private class func headerWithAuthorization() -> String
     {
-        return "Bearer " + Authorization.shared.token()!
+        return "Bearer " + TwitterAuthorization.token()!
     }
     
 }
