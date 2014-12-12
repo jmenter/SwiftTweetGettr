@@ -14,7 +14,7 @@ class Tweet {
     init(tweetDictionary:Dictionary<String, AnyObject>)
     {
         self.tweetDictionary = tweetDictionary
-        TwitterClient.fetchImageAtURL(profileImageURL(), success: { (image) -> Void in
+        TwitterClient.fetchImageAtURL(biggerProfileImageURL()!, success: { (image) -> Void in
             self.userImage = image
         })
     }
@@ -34,9 +34,30 @@ class Tweet {
         return tweetDictionary.description
     }
     
-    private func profileImageURL() -> String
+    func profileImageURL() -> String?
     {
-        return (tweetDictionary["user"] as Dictionary<String, AnyObject>)["profile_image_url"] as String
+        return user()["profile_image_url"] as? String
+    }
+    
+    func biggerProfileImageURL() -> String?
+    {
+        if let url = user()["profile_image_url"] as? String {
+            return url.stringByReplacingOccurrencesOfString("_normal", withString: "_bigger")
+        }
+        return nil
+    }
+    
+    func originalProfileImageURL() -> String?
+    {
+        if let url = user()["profile_image_url"] as? String {
+            return url.stringByReplacingOccurrencesOfString("_normal", withString: "")
+        }
+        return nil
+    }
+    
+    private func user() -> Dictionary<String, AnyObject>
+    {
+        return tweetDictionary["user"] as Dictionary<String, AnyObject>
     }
     
 }
