@@ -22,7 +22,9 @@ class TwitterAuthorization {
     
     class func hasToken() -> Bool
     {
-        if let actuallyToken = token() { return true }
+        if let actuallyToken = token() {
+            return true
+        }
         return false
     }
 }
