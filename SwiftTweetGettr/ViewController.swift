@@ -10,8 +10,10 @@ class ViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet var button : UIButton!
     @IBOutlet var tableView : UITableView!
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        
         textField.rightView = spinner
         textField.rightViewMode = .Always
         
@@ -26,6 +28,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
     override func viewDidAppear(animated: Bool)
     {
         super.viewDidAppear(animated)
+        
         if let selected = tableView.indexPathForSelectedRow() {
             tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: animated)
         }
@@ -34,25 +37,29 @@ class ViewController : UIViewController, UITextFieldDelegate {
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
         let index = tableView.indexPathForSelectedRow()?.row
         let tweet = tweetsTableViewDelegate.tweets[index!]
         (segue.destinationViewController.view as UITextView).text = tweet.description()
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    func textFieldShouldReturn(textField: UITextField!) -> Bool
+    {
         if !textField.text.isEmpty {
             buttonWasTapped(nil)
         }
         return textField.resignFirstResponder()
     }
 
-    @IBAction func textFieldDidChange(sender : AnyObject) {
+    @IBAction func textFieldDidChange(sender : AnyObject)
+    {
         button.enabled = !textField.text.isEmpty
         button.layer.borderColor = button.titleLabel?.textColor.CGColor
     }
 
-    @IBAction func buttonWasTapped(sender : AnyObject?) {
+    @IBAction func buttonWasTapped(sender : AnyObject?)
+    {
         textField.resignFirstResponder()
         spinner.startAnimating()
         
