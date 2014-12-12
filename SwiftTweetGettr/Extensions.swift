@@ -79,3 +79,16 @@ extension NSMutableURLRequest {
         return request
     }
 }
+
+extension UIImageView {
+    
+    func loadURL(url:String) {
+        NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL:  NSURL(string: url)!), queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            if response.isHTTPResponseValid() {
+                if let image = UIImage(data: data) {
+                    self.image = image
+                }
+            }
+        }
+    }
+}
