@@ -18,6 +18,7 @@ class TweetsTableViewDelegate : NSObject, UITableViewDataSource, UITableViewDele
         cell.textLabel?.text = tweet.text()
         cell.detailTextLabel?.text = tweet.createdAt()
         cell.imageView?.image = tweet.userImage
+        cell.imageView?.loadURL(tweet.originalProfileImageURL()!)
         
         return cell
     }
