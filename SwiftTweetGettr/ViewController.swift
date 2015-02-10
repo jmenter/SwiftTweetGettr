@@ -41,10 +41,10 @@ class ViewController : UIViewController, UITextFieldDelegate {
     {
         let index = tableView.indexPathForSelectedRow()?.row
         let tweet = tweetsTableViewDelegate.tweets[index!]
-        (segue.destinationViewController.view as UITextView).text = tweet.description
+        (segue.destinationViewController.view as! UITextView).text = tweet.description
     }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool
+    func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         if !textField.text.isEmpty {
             buttonWasTapped(nil)

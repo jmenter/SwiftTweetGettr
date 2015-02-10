@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C78c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8fe-du-ULE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7515.2" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="8fe-du-ULE">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7512"/>
     </dependencies>
     <scenes>
         <!--TweetGettr-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController title="TweetGettr" id="vXZ-lx-hvc" customClass="ViewController" customModule="SwiftTweetGettr" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="EVQ-YJ-Nfl"/>
-                        <viewControllerLayoutGuide type="bottom" id="h1g-WH-1br"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter twitter handle" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d1k-R5-nJi">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter twitter handle" minimumFontSize="17" id="d1k-R5-nJi">
                                 <rect key="frame" x="16" y="72" width="230" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
@@ -27,8 +23,9 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Czh-nk-FIA"/>
                                 </connections>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pAe-Mw-r8G">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" id="pAe-Mw-r8G">
                                 <rect key="frame" x="0.0" y="110" width="320" height="458"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tweetCell" id="Wxl-F9-pzD" customClass="TweetCell" customModule="SwiftTweetGettr" customModuleProvider="target">
@@ -36,23 +33,27 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wxl-F9-pzD" id="cxV-9l-M5M">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="orH-Qj-q5z">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="orH-Qj-q5z">
                                                     <rect key="frame" x="8" y="8" width="72" height="72"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Actual Name" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzM-Sw-E8b">
-                                                    <rect key="frame" x="88" y="8" width="79.5" height="16"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Actual Name" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zzM-Sw-E8b">
+                                                    <rect key="frame" x="88" y="8" width="191" height="16"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="twitterHandle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6k-02-AP5">
-                                                    <rect key="frame" x="88" y="24" width="69" height="13.5"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="twitterHandle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u6k-02-AP5">
+                                                    <rect key="frame" x="88" y="24" width="191" height="13.5"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rTC-bJ-f26">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" id="rTC-bJ-f26">
                                                     <rect key="frame" x="88" y="39" width="191" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <string key="text">line 1
 line 2
 line 3</string>
@@ -76,12 +77,9 @@ line 3</string>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="aYR-uN-dTB"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEE-Jh-3sH">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oEE-Jh-3sH">
                                 <rect key="frame" x="254" y="72" width="50" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Ztl-6w-Eu9"/>
-                                    <constraint firstAttribute="height" constant="30" id="jh2-Lc-eH5"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Gettr">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -91,17 +89,6 @@ line 3</string>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="d1k-R5-nJi" firstAttribute="top" secondItem="EVQ-YJ-Nfl" secondAttribute="bottom" constant="8" id="1OW-JF-TGM"/>
-                            <constraint firstItem="d1k-R5-nJi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="2ie-Lj-Ger"/>
-                            <constraint firstAttribute="trailing" secondItem="pAe-Mw-r8G" secondAttribute="trailing" id="44R-iy-DLm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="oEE-Jh-3sH" secondAttribute="trailing" id="SF8-KV-dkR"/>
-                            <constraint firstItem="oEE-Jh-3sH" firstAttribute="leading" secondItem="d1k-R5-nJi" secondAttribute="trailing" constant="8" id="V2a-oo-NRT"/>
-                            <constraint firstItem="pAe-Mw-r8G" firstAttribute="top" secondItem="oEE-Jh-3sH" secondAttribute="bottom" constant="8" id="ds5-ha-gtt"/>
-                            <constraint firstItem="pAe-Mw-r8G" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="juL-tj-Y76"/>
-                            <constraint firstItem="oEE-Jh-3sH" firstAttribute="top" secondItem="EVQ-YJ-Nfl" secondAttribute="bottom" constant="8" id="tcI-op-m4k"/>
-                            <constraint firstItem="h1g-WH-1br" firstAttribute="top" secondItem="pAe-Mw-r8G" secondAttribute="bottom" id="zVU-Vc-hBX"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="TweetGettr" id="blW-cU-ipm">
                         <barButtonItem key="backBarButtonItem" title=" " id="wHA-vf-zzP"/>
@@ -115,7 +102,7 @@ line 3</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="547" y="344.5"/>
+            <point key="canvasLocation" x="547" y="344"/>
         </scene>
         <!--TweetDetail-->
         <scene sceneID="Kbd-TO-VuA">

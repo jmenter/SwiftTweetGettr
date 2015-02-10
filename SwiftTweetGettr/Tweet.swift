@@ -10,10 +10,10 @@ class Tweet {
     
     private let tweetDictionary:Dictionary<String, AnyObject>
     
-    var text:String { return tweetDictionary["text"] as String }
-    var createdAt:String { return tweetDictionary["created_at"] as String }
-    var name:String { return user()["name"] as String }
-    var screenName:String { return user()["screen_name"] as String }
+    var text:String { return tweetDictionary["text"] as! String }
+    var createdAt:String { return tweetDictionary["created_at"] as! String }
+    var name:String { return user()["name"] as! String }
+    var screenName:String { return user()["screen_name"] as! String }
     var description:String { return tweetDictionary.description }
     var userImage = UIImage(named: "default")
     var profileImageURL:String? { return user()["profile_image_url"] as? String }
@@ -40,7 +40,7 @@ class Tweet {
 
     private func user() -> Dictionary<String, AnyObject>
     {
-        return tweetDictionary["user"] as Dictionary<String, AnyObject>
+        return tweetDictionary["user"] as! Dictionary<String, AnyObject>
     }
     
 }
