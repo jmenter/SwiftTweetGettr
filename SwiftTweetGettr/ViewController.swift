@@ -3,7 +3,7 @@ import UIKit
 
 class ViewController : UIViewController, UITextFieldDelegate {
     
-    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     var tweetsTableViewDelegate = TweetsTableViewDelegate()
     
     @IBOutlet var textField : UITextField!
@@ -15,50 +15,50 @@ class ViewController : UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         textField.rightView = spinner
-        textField.rightViewMode = .Always
+        textField.rightViewMode = .always
         
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
-        button.layer.borderColor = button.titleLabel?.textColor.CGColor
+        button.layer.borderColor = button.titleLabel?.textColor.cgColor
         
         tableView.dataSource = tweetsTableViewDelegate
         tableView.delegate = tweetsTableViewDelegate
     }
 
-    override func viewDidAppear(animated: Bool)
+    override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
         
-        if let selected = tableView.indexPathForSelectedRow() {
-            tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: animated)
+        if tableView.indexPathForSelectedRow != nil {
+            tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: animated)
         }
-        if textField.text.isEmpty {
+        if (textField.text?.isEmpty)! {
             textField.becomeFirstResponder()
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        let index = tableView.indexPathForSelectedRow()?.row
+        let index = tableView.indexPathForSelectedRow?.row
         let tweet = tweetsTableViewDelegate.tweets[index!]
-        (segue.destinationViewController.view as! UITextView).text = tweet.description
+        (segue.destination.view as! UITextView).text = tweet.description
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
-        if !textField.text.isEmpty {
+        if !(textField.text?.isEmpty)! {
             buttonWasTapped(nil)
         }
         return textField.resignFirstResponder()
     }
 
-    @IBAction func textFieldDidChange(sender : AnyObject)
+    @IBAction func textFieldDidChange(_ sender : AnyObject)
     {
-        button.enabled = !textField.text.isEmpty
-        button.layer.borderColor = button.titleLabel?.textColor.CGColor
+        button.isEnabled = !(textField.text?.isEmpty)!
+        button.layer.borderColor = button.titleLabel?.textColor.cgColor
     }
 
-    @IBAction func buttonWasTapped(sender : AnyObject?)
+    @IBAction func buttonWasTapped(_ sender : AnyObject?)
     {
         textField.resignFirstResponder()
         spinner.startAnimating()
@@ -68,7 +68,7 @@ class ViewController : UIViewController, UITextFieldDelegate {
         } else {
             TwitterClient.fetchAuthorizationToken(success: { () -> Void in
                 self.fetchTweets()
-                }, failure: { (message) -> Void in
+                }, { (message) -> Void in
                     self.showAlertViewWithMessage("Something went wrong getting token. \(message)")
                     self.spinner.stopAnimating()
             })
@@ -76,9 +76,10 @@ class ViewController : UIViewController, UITextFieldDelegate {
     }
 
     func fetchTweets() {
-        TwitterClient.fetchTweetsForUser(textField.text.stringByRemovingWhitespace(), success: { (tweets) -> Void in
+        guard let userFieldText = textField.text else { return }
+        TwitterClient.fetchTweetsForUser(userFieldText.stringByRemovingWhitespace(), success: { (tweets) -> Void in
             self.tweetsTableViewDelegate.tweets = tweets
-            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+            self.tableView.reloadSections(IndexSet([0]), with: UITableViewRowAnimation.fade)
             self.tableView.scrollToTop(animated: true)
             self.spinner.stopAnimating()
             }, failure: { (message) -> Void in
