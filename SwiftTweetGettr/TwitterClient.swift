@@ -16,11 +16,16 @@ class TwitterClient {
     
     class func fetchAuthorizationToken(success:@escaping () -> Void, _ failure:@escaping (String) -> Void)
     {
+        if headerForAuthorization().isEmpty
+        {
+            failure("API Key & Secret not configured!")
+            return
+        }
         var tokenRequest = URLRequest(url: kOAuthRootURL.createURL())
         tokenRequest.httpBody = kAuthorizationBody.data()
         tokenRequest.addValue(kAuthorizationContentType, forHTTPHeaderField: kContentTypeHeader)
         tokenRequest.addValue(headerForAuthorization(), forHTTPHeaderField: kAuthorizationHeaderKey)
-         tokenRequest.httpMethod = "POST"
+        tokenRequest.httpMethod = "POST"
 
         print("fetchAuthorizationToken")
         let task = URLSession.shared.dataTask(with: tokenRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
@@ -84,7 +89,11 @@ class TwitterClient {
     
     fileprivate class func headerForAuthorization() -> String
     {
-        return "Basic " + (kAPIKey + ":" + kAPISecret).base64Encoded()
+        let twitterCredentials = NSDictionary(contentsOfFile: "TwitterCredentials.plist")
+        let apiKey = twitterCredentials?["APIKey"] as? String ?? kAPIKey
+        let apiSecret = twitterCredentials?["APISecret"] as? String ?? kAPISecret
+        if apiKey.isEmpty || apiSecret.isEmpty { return "" }
+        return "Basic " + (apiKey + ":" + apiSecret).base64Encoded()
     }
     
     fileprivate class func headerWithAuthorization() -> String

@@ -17,6 +17,7 @@
 		63FEA3D6193E888700400515 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEA3D5193E888700400515 /* ViewController.swift */; };
 		63FEA3D9193E888700400515 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63FEA3D7193E888700400515 /* Main.storyboard */; };
 		63FEA3DB193E888700400515 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63FEA3DA193E888700400515 /* Images.xcassets */; };
+		F6E571DE1F6CE557008DF6C3 /* TwitterCredentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6E571DD1F6CE557008DF6C3 /* TwitterCredentials.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		63FEA3D5193E888700400515 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		63FEA3D8193E888700400515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		63FEA3DA193E888700400515 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F6E571DD1F6CE557008DF6C3 /* TwitterCredentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TwitterCredentials.plist; path = SwiftTweetGettr/TwitterCredentials.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 		63FEA3C5193E888700400515 = {
 			isa = PBXGroup;
 			children = (
+				F6E571DD1F6CE557008DF6C3 /* TwitterCredentials.plist */,
 				63FEA3D0193E888700400515 /* SwiftTweetGettr */,
 				63FEA3CF193E888700400515 /* Products */,
 			);
@@ -118,7 +121,7 @@
 				TargetAttributes = {
 					63FEA3CD193E888700400515 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = PQHPAVF5T9;
+						DevelopmentTeam = 6KYAUVEW7R;
 						LastSwiftMigration = 0830;
 					};
 				};
@@ -148,6 +151,7 @@
 			files = (
 				63FEA3D9193E888700400515 /* Main.storyboard in Resources */,
 				63FEA3DB193E888700400515 /* Images.xcassets in Resources */,
+				F6E571DE1F6CE557008DF6C3 /* TwitterCredentials.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +277,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = PQHPAVF5T9;
+				DEVELOPMENT_TEAM = 6KYAUVEW7R;
 				INFOPLIST_FILE = SwiftTweetGettr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -288,7 +292,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = PQHPAVF5T9;
+				DEVELOPMENT_TEAM = 6KYAUVEW7R;
 				INFOPLIST_FILE = SwiftTweetGettr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -26,3 +26,5 @@ Scripts/venv
 
 Carthage/Checkouts
 Carthage/Build
+
+SwiftTweetGettr/TwitterCredentials.plist
