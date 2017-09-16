@@ -17,7 +17,7 @@
 		63FEA3D6193E888700400515 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FEA3D5193E888700400515 /* ViewController.swift */; };
 		63FEA3D9193E888700400515 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63FEA3D7193E888700400515 /* Main.storyboard */; };
 		63FEA3DB193E888700400515 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63FEA3DA193E888700400515 /* Images.xcassets */; };
-		F6E571DE1F6CE557008DF6C3 /* TwitterCredentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6E571DD1F6CE557008DF6C3 /* TwitterCredentials.plist */; };
+		F6E571E01F6CF253008DF6C3 /* TwitterCredentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6E571DF1F6CF253008DF6C3 /* TwitterCredentials.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		63FEA3D5193E888700400515 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		63FEA3D8193E888700400515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		63FEA3DA193E888700400515 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F6E571DD1F6CE557008DF6C3 /* TwitterCredentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TwitterCredentials.plist; path = SwiftTweetGettr/TwitterCredentials.plist; sourceTree = "<group>"; };
+		F6E571DF1F6CF253008DF6C3 /* TwitterCredentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TwitterCredentials.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +50,6 @@
 		63FEA3C5193E888700400515 = {
 			isa = PBXGroup;
 			children = (
-				F6E571DD1F6CE557008DF6C3 /* TwitterCredentials.plist */,
 				63FEA3D0193E888700400515 /* SwiftTweetGettr */,
 				63FEA3CF193E888700400515 /* Products */,
 			);
@@ -85,6 +84,7 @@
 		63FEA3D1193E888700400515 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F6E571DF1F6CF253008DF6C3 /* TwitterCredentials.plist */,
 				63FEA3D2193E888700400515 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -151,7 +151,7 @@
 			files = (
 				63FEA3D9193E888700400515 /* Main.storyboard in Resources */,
 				63FEA3DB193E888700400515 /* Images.xcassets in Resources */,
-				F6E571DE1F6CE557008DF6C3 /* TwitterCredentials.plist in Resources */,
+				F6E571E01F6CF253008DF6C3 /* TwitterCredentials.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

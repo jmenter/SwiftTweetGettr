@@ -27,10 +27,8 @@ class TwitterClient {
         tokenRequest.addValue(headerForAuthorization(), forHTTPHeaderField: kAuthorizationHeaderKey)
         tokenRequest.httpMethod = "POST"
 
-        print("fetchAuthorizationToken")
         let task = URLSession.shared.dataTask(with: tokenRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             let validResponse = response?.isHTTPResponseValid() ?? false
-            print("   valid responnse: \(validResponse)")
             if validResponse {
                 TwitterAuthorization.setToken(data?.json()["access_token"] as? String)
                 if TwitterAuthorization.hasToken() {
@@ -39,7 +37,6 @@ class TwitterClient {
                     failure("response has no access_token")
                 }
             } else {
-                print(error?.localizedDescription ?? "No info on error")
                 self.handleFailure(failure, error: error, response: response)
             }
         }
@@ -49,7 +46,8 @@ class TwitterClient {
     class func fetchTweetsForUser(_ userName:String, success:@escaping (Array<Tweet>) -> Void, failure:@escaping (String) -> Void)
     {
         let userURL = kTimelineRootURL + userName.stringByRemovingWhitespace()
-        let tweetRequest = URLRequest(url: userURL.createURL())
+        var tweetRequest = URLRequest(url: userURL.createURL())
+        tweetRequest.addValue(headerWithAuthorization(), forHTTPHeaderField: kAuthorizationHeaderKey)
 
         let task = URLSession.shared.dataTask(with: tweetRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             let validResponse = response?.isHTTPResponseValid() ?? false
@@ -66,7 +64,8 @@ class TwitterClient {
     
     class func fetchImageAtURL(_ url:String, success:@escaping (UIImage?) -> Void) -> Void
     {
-        let imageURLRequest = URLRequest(url: URL(string: url)!)
+        let secureURL = url.replacingOccurrences(of: "http://", with: "https://")
+        let imageURLRequest = URLRequest(url: URL(string: secureURL)!)
         let task = URLSession.shared.dataTask(with: imageURLRequest) { (data, response, error) -> Void in
             let validResponse = response?.isHTTPResponseValid() ?? false
             if validResponse {
@@ -89,7 +88,8 @@ class TwitterClient {
     
     fileprivate class func headerForAuthorization() -> String
     {
-        let twitterCredentials = NSDictionary(contentsOfFile: "TwitterCredentials.plist")
+        let credentialsPath = Bundle.main.path(forResource: "TwitterCredentials", ofType: "plist")
+        let twitterCredentials = NSDictionary(contentsOfFile: credentialsPath!)
         let apiKey = twitterCredentials?["APIKey"] as? String ?? kAPIKey
         let apiSecret = twitterCredentials?["APISecret"] as? String ?? kAPISecret
         if apiKey.isEmpty || apiSecret.isEmpty { return "" }
