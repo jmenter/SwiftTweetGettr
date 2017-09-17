@@ -1,94 +1,85 @@
 
 import UIKit
 
-extension NSURLResponse {
+extension URLResponse {
     
     func isHTTPResponseValid() -> Bool
     {
-        if let response = self as? NSHTTPURLResponse {
+        if let response = self as? HTTPURLResponse {
             return (response.statusCode >= 200 && response.statusCode <= 299)
         }
         return false
     }
 }
 
-extension NSData {
+extension Data {
     
     func json() -> AnyObject
     {
-        return NSJSONSerialization.JSONObjectWithData(self, options: nil, error: nil)!
+        let result = try? JSONSerialization.jsonObject(with: self, options: [])
+        return result! as AnyObject
     }
 }
 
 extension UITableView {
     
-    func scrollToTop(#animated: Bool)
+    func scrollToTop(animated: Bool)
     {
-        scrollRectToVisible(CGRectMake(0, 0, 1, 0), animated: true)
+        scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 0), animated: true)
     }
 }
 
 extension UIViewController {
     
-    func showAlertViewWithMessage(message : String)
+    func showAlertViewWithMessage(_ message : String)
     {
-        var alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
+        let alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
     }
 }
 
 extension String {
     
-    func data() -> NSData
+    func data() -> Data
     {
-        return dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+        return self.data(using: String.Encoding.utf8, allowLossyConversion: false)!
     }
     
     func base64Encoded() -> String
     {
-        return data().base64EncodedStringWithOptions(nil)
+        let dataFromString = self.data()
+        return dataFromString.base64EncodedString(options: [])
     }
     
-    func createURL() -> NSURL
+    func createURL() -> URL
     {
-        return NSURL(string: self)!
+        let secureURL = self.replacingOccurrences(of: "http://", with: "https://")
+        return URL(string: secureURL)!
     }
     
     func stringByRemovingWhitespace() -> String
     {
-        let trimmed = self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        return trimmed.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
-    }
-}
-
-extension NSMutableURLRequest {
-    
-    class func getRequestWithURL(url:NSURL) -> NSMutableURLRequest
-    {
-        var request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "GET"
-        return request
-    }
-    
-    class func postRequestWithURL(url:NSURL, body:String) -> NSMutableURLRequest
-    {
-        var request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.HTTPBody = body.data()
-        return request
+        let trimmed = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        return trimmed.replacingOccurrences(of: " ", with:"", options: [], range: nil)
     }
 }
 
 extension UIImageView {
     
-    func loadURL(url:String) {
-        NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL:  NSURL(string: url)!), queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
-            if response.isHTTPResponseValid() {
-                if let image = UIImage(data: data) {
-                    self.image = image
+    func loadURL(_ url:String) {
+        
+        let request = URLRequest(url: url.createURL())
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+            let validResponse = response?.isHTTPResponseValid() ?? false
+            if validResponse {
+                DispatchQueue.main.async { [unowned self] in
+                    if let image = UIImage(data: data!) {
+                        self.image = image
+                    }
                 }
             }
         }
+        task.resume()
     }
 }

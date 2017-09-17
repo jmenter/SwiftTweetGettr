@@ -3,12 +3,12 @@ import UIKit
 
 class Tweet {
     
-    class func tweetsFromArray(from: Array<Dictionary<String, AnyObject>>) -> Array<Tweet>
+    class func tweetsFromArray(_ from: Array<Dictionary<String, AnyObject>>) -> Array<Tweet>
     {
         return from.map( { Tweet(tweetDictionary: $0) } )
     }
     
-    private let tweetDictionary:Dictionary<String, AnyObject>
+    fileprivate let tweetDictionary:Dictionary<String, AnyObject>
     
     var text:String { return tweetDictionary["text"] as! String }
     var createdAt:String { return tweetDictionary["created_at"] as! String }
@@ -19,13 +19,13 @@ class Tweet {
     var profileImageURL:String? { return user()["profile_image_url"] as? String }
     var biggerProfileImageURL:String? {
         if let url = user()["profile_image_url"] as? String {
-            return url.stringByReplacingOccurrencesOfString("_normal", withString: "_bigger")
+            return url.replacingOccurrences(of: "_normal", with: "_bigger")
         }
         return nil
     }
     var originalProfileImageURL:String? {
         if let url = user()["profile_image_url"] as? String {
-            return url.stringByReplacingOccurrencesOfString("_normal", withString: "")
+            return url.replacingOccurrences(of: "_normal", with: "")
         }
         return nil
     }
@@ -38,7 +38,7 @@ class Tweet {
         })
     }
 
-    private func user() -> Dictionary<String, AnyObject>
+    fileprivate func user() -> Dictionary<String, AnyObject>
     {
         return tweetDictionary["user"] as! Dictionary<String, AnyObject>
     }

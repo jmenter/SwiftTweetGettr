@@ -7,22 +7,22 @@ class TwitterAuthorization {
     
     class func token() -> String?
     {
-        return NSUserDefaults.standardUserDefaults().stringForKey(kAuthorizationTokenStorageKey)
+        return UserDefaults.standard.string(forKey: kAuthorizationTokenStorageKey)
     }
     
-    class func setToken(token:String?) -> Void
+    class func setToken(_ token:String?) -> Void
     {
-        if let actuallyToken = token {
-            NSUserDefaults.standardUserDefaults().setObject(token, forKey: kAuthorizationTokenStorageKey)
+        if token != nil {
+            UserDefaults.standard.set(token, forKey: kAuthorizationTokenStorageKey)
         } else {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(kAuthorizationTokenStorageKey)
+            UserDefaults.standard.removeObject(forKey: kAuthorizationTokenStorageKey)
         }
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.synchronize()
     }
     
     class func hasToken() -> Bool
     {
-        if let actuallyToken = token() {
+        if token() != nil {
             return true
         }
         return false

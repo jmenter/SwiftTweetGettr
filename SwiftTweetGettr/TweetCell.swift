@@ -8,7 +8,7 @@ class TweetCell : UITableViewCell {
     @IBOutlet weak var handleTextField: UILabel!
     @IBOutlet weak var statusTextField: UILabel!
     
-    func applyTweet(tweet:Tweet) -> Void
+    func applyTweet(_ tweet:Tweet) -> Void
     {
         nameTextField.text = tweet.name
         handleTextField.text = tweet.screenName
