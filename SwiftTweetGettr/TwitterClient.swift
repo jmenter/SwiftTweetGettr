@@ -47,6 +47,7 @@ class TwitterClient {
     {
         let userURL = kTimelineRootURL + userName.stringByRemovingWhitespace()
         var tweetRequest = URLRequest(url: userURL.createURL())
+        tweetRequest.httpMethod = "GET"
         tweetRequest.addValue(headerWithAuthorization(), forHTTPHeaderField: kAuthorizationHeaderKey)
 
         let task = URLSession.shared.dataTask(with: tweetRequest) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
@@ -64,8 +65,7 @@ class TwitterClient {
     
     class func fetchImageAtURL(_ url:String, success:@escaping (UIImage?) -> Void) -> Void
     {
-        let secureURL = url.replacingOccurrences(of: "http://", with: "https://")
-        let imageURLRequest = URLRequest(url: URL(string: secureURL)!)
+        let imageURLRequest = URLRequest(url: url.createURL())
         let task = URLSession.shared.dataTask(with: imageURLRequest) { (data, response, error) -> Void in
             let validResponse = response?.isHTTPResponseValid() ?? false
             if validResponse {

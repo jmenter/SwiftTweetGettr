@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="8fe-du-ULE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="8fe-du-ULE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,13 +13,16 @@
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController title="TweetGettr" id="vXZ-lx-hvc" customClass="ViewController" customModule="SwiftTweetGettr" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XDk-iR-ozB"/>
+                        <viewControllerLayoutGuide type="bottom" id="rsy-jV-yyX"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter twitter handle" minimumFontSize="17" id="d1k-R5-nJi">
-                                <rect key="frame" x="16" y="72" width="285" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter twitter handle" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d1k-R5-nJi">
+                                <rect key="frame" x="16" y="72" width="287" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
@@ -27,38 +30,49 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Czh-nk-FIA"/>
                                 </connections>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" id="pAe-Mw-r8G">
-                                <rect key="frame" x="0.0" y="110" width="375" height="557"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEE-Jh-3sH">
+                                <rect key="frame" x="311" y="72" width="48" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="LoY-e0-PlP"/>
+                                </constraints>
+                                <state key="normal" title="Gettr">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonWasTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Nrp-my-OGc"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pAe-Mw-r8G">
+                                <rect key="frame" x="0.0" y="113" width="375" height="554"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tweetCell" id="Wxl-F9-pzD" customClass="TweetCell" customModule="SwiftTweetGettr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="375" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wxl-F9-pzD" id="cxV-9l-M5M">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="87.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="88"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="orH-Qj-q5z">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="orH-Qj-q5z">
                                                     <rect key="frame" x="8" y="8" width="72" height="72"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Actual Name" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zzM-Sw-E8b">
-                                                    <rect key="frame" x="87.5" y="8" width="1246.5" height="16"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Actual Name" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzM-Sw-E8b">
+                                                    <rect key="frame" x="87" y="8" width="1247" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="twitterHandle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u6k-02-AP5">
-                                                    <rect key="frame" x="87.5" y="24" width="1246.5" height="13.5"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="twitterHandle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6k-02-AP5">
+                                                    <rect key="frame" x="87" y="24" width="1247" height="13"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" id="rTC-bJ-f26">
-                                                    <rect key="frame" x="87.5" y="39" width="1246.5" height="40"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rTC-bJ-f26">
+                                                    <rect key="frame" x="87" y="39" width="1247" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <string key="text">line 1
 line 2
@@ -83,18 +97,19 @@ line 3</string>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="aYR-uN-dTB"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oEE-Jh-3sH">
-                                <rect key="frame" x="309" y="72" width="50" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Gettr">
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonWasTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Nrp-my-OGc"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="d1k-R5-nJi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="2ZD-MY-1ky"/>
+                            <constraint firstItem="rsy-jV-yyX" firstAttribute="top" secondItem="pAe-Mw-r8G" secondAttribute="bottom" id="2xM-bQ-68Z"/>
+                            <constraint firstItem="pAe-Mw-r8G" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3ID-3N-JcT"/>
+                            <constraint firstAttribute="trailing" secondItem="pAe-Mw-r8G" secondAttribute="trailing" id="3xF-Uv-04F"/>
+                            <constraint firstItem="oEE-Jh-3sH" firstAttribute="leading" secondItem="d1k-R5-nJi" secondAttribute="trailing" constant="8" id="5Ie-Z0-lKi"/>
+                            <constraint firstItem="oEE-Jh-3sH" firstAttribute="centerY" secondItem="d1k-R5-nJi" secondAttribute="centerY" id="FGE-tL-XWA"/>
+                            <constraint firstItem="pAe-Mw-r8G" firstAttribute="top" secondItem="d1k-R5-nJi" secondAttribute="bottom" constant="11" id="Ptd-oW-SiV"/>
+                            <constraint firstAttribute="trailing" secondItem="oEE-Jh-3sH" secondAttribute="trailing" constant="16" id="t9H-PW-iTZ"/>
+                            <constraint firstItem="d1k-R5-nJi" firstAttribute="top" secondItem="XDk-iR-ozB" secondAttribute="bottom" constant="8" id="u0W-8g-OU6"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="TweetGettr" id="blW-cU-ipm">
                         <barButtonItem key="backBarButtonItem" title=" " id="wHA-vf-zzP"/>

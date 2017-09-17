@@ -54,7 +54,8 @@ extension String {
     
     func createURL() -> URL
     {
-        return URL(string: self)!
+        let secureURL = self.replacingOccurrences(of: "http://", with: "https://")
+        return URL(string: secureURL)!
     }
     
     func stringByRemovingWhitespace() -> String
@@ -64,36 +65,21 @@ extension String {
     }
 }
 
-extension NSMutableURLRequest {
-    
-    class func getRequestWithURL(_ url:URL) -> NSMutableURLRequest
-    {
-        let request = NSMutableURLRequest(url: url)
-        request.httpMethod = "GET"
-        return request
-    }
-    
-    class func postRequestWithURL(_ url:URL, body:String) -> NSMutableURLRequest
-    {
-        let request = NSMutableURLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = body.data()
-        return request
-    }
-}
-
 extension UIImageView {
     
     func loadURL(_ url:String) {
         
-        let request = URLRequest(url: URL(string: url)!)
-        URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
+        let request = URLRequest(url: url.createURL())
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
             let validResponse = response?.isHTTPResponseValid() ?? false
             if validResponse {
-                if let image = UIImage(data: data!) {
-                    self.image = image
+                DispatchQueue.main.async { [unowned self] in
+                    if let image = UIImage(data: data!) {
+                        self.image = image
+                    }
                 }
             }
         }
+        task.resume()
     }
 }

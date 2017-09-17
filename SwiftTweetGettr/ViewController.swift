@@ -68,25 +68,31 @@ class ViewController : UIViewController, UITextFieldDelegate {
         } else {
             TwitterClient.fetchAuthorizationToken(success: { () -> Void in
                 self.fetchTweets()
-                }, { (message) -> Void in
+            }, { [unowned self](message) -> Void in
+                DispatchQueue.main.async {
                     self.showAlertViewWithMessage("Something went wrong getting token. \(message)")
                     self.spinner.stopAnimating()
+                }
             })
         }
     }
 
     func fetchTweets() {
         guard let userFieldText = textField.text else { return }
-        TwitterClient.fetchTweetsForUser(userFieldText.stringByRemovingWhitespace(), success: { (tweets) -> Void in
-            self.tweetsTableViewDelegate.tweets = tweets
-            self.tableView.reloadSections(IndexSet([0]), with: UITableViewRowAnimation.fade)
-            self.tableView.scrollToTop(animated: true)
-            self.spinner.stopAnimating()
-            }, failure: { (message) -> Void in
-                self.showAlertViewWithMessage("Something went wrong getting tweets. \(message)")
+        TwitterClient.fetchTweetsForUser(userFieldText.stringByRemovingWhitespace(), success: { [unowned self](tweets) -> Void in
+            DispatchQueue.main.async {
+                self.tweetsTableViewDelegate.tweets = tweets
+                self.tableView.reloadSections(IndexSet([0]), with: UITableViewRowAnimation.fade)
+                self.tableView.scrollToTop(animated: true)
                 self.spinner.stopAnimating()
+            }
+            }, failure: { [unowned self](message) -> Void in
+                DispatchQueue.main.async {
+                    self.showAlertViewWithMessage("Something went wrong getting tweets. \(message)")
+                    self.spinner.stopAnimating()
+                }
         })
     }
-
+    
 }
 
